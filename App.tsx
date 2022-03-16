@@ -1,12 +1,33 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import ExploreScreen from './screens/Explore';
+import ProfileScreen from './screens/Profile';
+import RestaurantsScreen from './screens/Restaurants';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import RestaurantScreen from './screens/Restaurant';
+
+export type RootStackParams = {
+  Explore: any;
+  Restaurants: any;
+  Profile: any;
+  Restaurant: {
+    name: string
+  }
+}
+
+const RootStack = createNativeStackNavigator<RootStackParams>();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <RootStack.Navigator initialRouteName="Restaurants">
+        <RootStack.Screen name="Explore" component={ExploreScreen} />
+        <RootStack.Screen name="Restaurants" component={RestaurantsScreen} />
+        <RootStack.Screen name="Profile" component={ProfileScreen} />
+        <RootStack.Screen name="Restaurant" component={RestaurantScreen} />
+      </RootStack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -17,4 +38,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  content: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 150,
+
+  }
 });
